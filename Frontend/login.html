@@ -1,0 +1,107 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>User Login</h1>
+    <form onsubmit="loginUser(); return false;">
+        <input type="number" id="login_id" placeholder="ID" required>
+        <input type="text" id="login_name" placeholder="Name" required>
+        <input type="password" id="login_password" placeholder="Password" required>
+        
+        <button type="submit">Login</button>
+
+        
+        <div style="margin-top: 10px; text-align: center;">
+            <label style="display: inline-flex; align-items: center;">
+                <input type="checkbox" id="showPassword">
+                <span style="margin-left: 5px;">Show Password</span>
+            </label>
+        </div>
+
+         
+        <button id="helpButtonLogin" type="button" style="display: block; margin-top: 15px;">Need Help?</button>
+    </form>
+
+    <p>New user? <a href="register.html">Register here</a></p>
+
+    <script src="script.js"></script>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>User Login</h1>
+    <form onsubmit="loginUser(); return false;">
+        <!-- Role selection dropdown -->
+        <label id="login_role_label" for="login_role">I am a:</label>
+
+
+
+        <select id="login_role" required>
+            <option value="customer">Customer</option>
+            <option value="support">Support Agent</option>
+        </select><br><br>
+
+        <input type="number" id="login_id" placeholder="ID" required>
+        <input type="text" id="login_name" placeholder="Name or Email" required>
+        <input type="password" id="login_password" placeholder="Password" required>
+        
+        <button type="submit">Login</button>
+
+        <!-- Show Password Checkbox -->
+        <div style="margin-top: 10px; text-align: center;">
+            <label style="display: inline-flex; align-items: center;">
+                <input type="checkbox" id="showPassword">
+                <span style="margin-left: 5px;">Show Password</span>
+            </label>
+        </div>
+
+        <!-- Need Help Button -->
+        <button id="helpButtonLogin" type="button" style="display: block; margin-top: 15px;">Need Help?</button>
+    </form>
+
+    <p>New user? <a href="register.html">Register here</a></p>
+
+    <script>
+        // Show/hide password toggle
+        document.getElementById("showPassword").addEventListener("change", function () {
+            const pw = document.getElementById("login_password");
+            pw.type = this.checked ? "text" : "password";
+        });
+
+        async function loginUser() {
+            const role = document.getElementById("login_role").value;
+            const name = document.getElementById("login_name").value;
+            const password = document.getElementById("login_password").value;
+
+            const route = role === "support" ? "/login-agent" : "/login";
+
+            const res = await fetch(route, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ Email: name, Password: password })
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+                alert(data.message);
+                window.location.href = role === "support" ? "agent_dashboard.html" : "user-dashboard.html";
+            } else {
+                alert(data.error || data.message);
+            }
+        }
+    </script>
+</body>
+</html>

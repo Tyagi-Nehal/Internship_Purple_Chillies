@@ -1,0 +1,294 @@
+/* ============================== */
+/* 🔷 Global Styles */
+/* ============================== */
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff; /* ⬅ changed to white */
+  background-image: none;     /* ⬅ removed background image */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  height: auto;
+  color: #1f2937; /* ⬅ dark slate for readable base text */
+  padding-top: 80px;
+}
+
+.side_photo-img {
+  max-width: 50%; /* or any desired width */
+  height: auto;
+  border-radius: 12px;
+}
+
+.our_services-img {
+  max-width: 30%; /* or any desired width */
+  height: auto;
+  border-radius: 12px;
+}
+
+
+
+h1 {
+  font-size: 40px;
+  text-shadow: none;
+  color: #0f172a; /* ⬅ deep navy for headings */
+}
+
+h2,
+h3,
+.case-card h3,
+.case-card h3 strong,
+strong {
+  color: #1e293b !important; /* ⬅ steel gray for subheadings */
+}
+
+/* ============================== */
+/* 🔷 Forms and Inputs */
+/* ============================== */
+
+input,
+textarea,
+select {
+  display: block;
+  margin: 15px auto;
+  padding: 12px;
+  font-size: 18px;
+  width: 280px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  color: black;
+}
+
+.case-form input[type="file"] {
+  color: #374151; /* ⬅ charcoal */
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid #888;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* ============================== */
+/* 🔷 Buttons */
+/* ============================== */
+
+button,
+form button {
+  display: block;
+  width: 20%;
+  margin: 20px auto 0 auto;
+  padding: 14px 28px;
+  font-size: 20px;
+  text-align: center;
+  background: linear-gradient(to right, #007BFF, #0056b3);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(to right, #0056b3, #004080);
+}
+
+/* ============================== */
+/* 🔷 Chat UI */
+/* ============================== */
+
+#chatWindow {
+  width: 400px;
+  height: 500px;
+  border: 2px solid #ccc;
+  padding: 10px;
+  background: white;
+  color: black;
+}
+
+#chatMessages {
+  height: 400px;
+  overflow-y: auto;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+/* ============================== */
+/* 🔷 Logo + Password Toggle */
+/* ============================== */
+
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 260px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.logo:hover {
+  transform: rotate(-2deg);
+}
+
+.password-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.password-toggle input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* ============================== */
+/* 🔷 Case Dashboard Cards */
+/* ============================== */
+
+.case-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.case-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  color: #111827; /* ⬅ readable deep gray text */
+}
+
+.case-card label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #0f172a;
+}
+
+  .case-card select {
+  background-color: #f0f4ff; /* light blue background for contrast */
+  color: #000;
+  font-weight: bold;
+  border: 1px solid #007BFF;
+  padding: 12px;
+  border-radius: 8px;
+  appearance: none; /* 🔹 hides native dropdown arrow */
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-image: none; /* fallback for some browsers */
+}
+
+.case-card button {
+  margin-top: 6px;
+  padding: 10px;
+  font-size: 15px;
+  width: 100%;
+  border-radius: 6px;
+  border: none;
+}
+
+.case-card select,
+.case-card option {
+  background-color: #f3f4f6; /* light gray */
+  color: #1f2937;
+}
+
+h2 {
+  color: #1e293b;
+}
+
+.case-card h3 {
+  color: #1e293b;
+}
+
+.side_photo-img {
+  margin-top: 40px;
+}
+
+
+/* ============================== */
+/* 🔷 Misc */
+/* ============================== */
+
+.unwanted-text {
+  display: none;
+}
+
+#helpText {
+  position: fixed;
+  right: 10px;
+  bottom: 80px;
+  z-index: 99999;
+  font-size: 23px;
+  color: #1f2937;
+}
+
+#helpText:hover {
+  color: #0056b3;
+}
+
+#login_role_label {
+  font-size: 100px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+  color: #0f172a;
+}
+
+
+
+nav {
+  position: fixed;      /* 🔒 Keeps it stuck at the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #ffffff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+nav a {
+  text-decoration: none;
+  color: #007BFF;
+  font-weight: bold;
+  padding: 8px 12px;
+  transition: background 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #e0eaff;
+  border-radius: 6px;
+}
+
+footer {
+  margin-top: auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #f0f4ff;
+  color: #333;
+  font-weight: bold;
+  border-top: 1px solid #ccc;
+}
+
+
+.logo {
+  display: block;
+  margin: 80px auto 20px auto; /* pushes it below the fixed nav */
+  max-width: 250px;
+  height: auto;
+}

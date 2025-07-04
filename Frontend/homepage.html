@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Purple Chillies</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <img src="logo.png" alt="Purple Chillies Logo" class="logo">
+    
+    <h1>Welcome to Purple Chillies!</h1>
+    <p>Your personalized portal for everything amazing.</p>
+
+    <button onclick="visitPortal()">Enter the Portal</button>
+    <button onclick="logout()">Logout</button>
+
+    <script>
+        function visitPortal() {
+            window.location.href = "portal.html"; // Redirect to portal page
+        }
+
+        function logout() {
+            window.location.href = "index.html"; // Redirect back to login
+        }
+    </script>
+</body>
+</html>

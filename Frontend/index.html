@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Purple Chillies Solutions</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+</head>
+<body>
+
+  <!-- 🔷 Logo -->
+  <header>
+    <img src="logo1.jpeg" alt="Purple Chillies Logo" class="logo" />
+  </header>
+  
+
+
+  <!-- 🔷 Dynamic Content Mount Point -->
+  <div id="app"></div>
+
+  <!-- 🔷 Navigation -->
+  <nav>
+    <a href="#hero" onclick="showMainContent()">Home</a>
+    <a href="#services" onclick="showMainContent()">Services</a>
+    <a href="#why choose us" onclick="showMainContent()">Why choose us</a>
+    <a href="#contact" onclick="showMainContent()">Contact</a>
+
+    <a href="#" onclick="showLogin()">Login</a>
+    <a href="#" onclick="showRegister()">Register</a>
+  </nav>
+  
+  <div id="mainContent">
+  <!-- 🔷 Hero Section with Banner -->
+  <section id="hero" class="welcome-section">
+    <div class="welcome-text">
+      <h1>Welcome to Purple Chillies!</h1>
+      <p>Your personalized portal for everything amazing.</p>
+      <button onclick="showRegister()">Register</button>
+      <button onclick="showLogin()">Login</button>
+    </div>
+    <div class="welcome-image">
+      <img src="side_photo_3.png" alt="Side Banner" class="side_photo-img" />
+    </div>
+  </section>
+
+  <!-- 🔷 Our Services Section -->
+  <section id="services" class="services-section">
+  <h2>💼 Our Services</h2>
+  <img src="our_services.png" alt="Our Services Visual" class="our_services-img" />
+  </section>
+
+<!-- 🔷 Why Choose Us Section -->
+  <section id="why choose us" class="whyus-section">
+  <h2>🌟 Why Choose Us?</h2>
+  <img src="why_choose_us.png" alt="Why Choose Us Visual" class="whyus-img" />
+  </section>
+
+
+  <!-- 🔷 Contact Section -->
+  <section id="contact">
+    <h2>📞 Get in Touch</h2>
+    <p>Email: contact@purplechillies.in</p>
+    <p>Phone: +91-9876543210</p>
+  </section>
+  </div>
+
+  <!-- 🔷 Embedded Chatbot -->
+  <df-messenger
+    intent="WELCOME"
+    chat-title="Purple_Chillies_Chat_Bot"
+    agent-id="e20923d0-d9d0-4d29-af72-86e8b520efb6"
+    language-code="en"
+  ></df-messenger>
+
+  <!-- 🔷 Help Label -->
+  <span id="helpText">Need Help?</span>
+
+  <!-- 🔷 Footer -->
+  <footer>
+    <p>© 2025 Purple Chillies Solutions. All rights reserved.</p>
+  </footer>
+
+  <!-- 🔷 Script -->
+  <script src="script.js"></script>
+</body>
+</html>

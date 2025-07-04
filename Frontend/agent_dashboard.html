@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agent Dashboard</title>
+  <style>
+
+  
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff; /* changed to white */
+      min-height: 100vh;
+      color: #222222; /* dark text for contrast */
+    }
+
+    h2 {
+      text-align: center;
+      padding: 30px 20px 10px 20px;
+      color: #0056b3; /* blue for accent */
+    }
+
+    .case-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .case-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid #444;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    .case-card h3 {
+      margin-top: 0;
+      color: #007BFF; /* strong blue tone */
+    }
+
+    .case-card p {
+      margin: 10px 0;
+    }
+
+    .case-card label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    .case-card select,
+    .case-card button {
+      margin-top: 6px;
+      padding: 10px;
+      font-size: 15px;
+      width: 100%;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .case-card select {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    .case-card button {
+      background: linear-gradient(to right, #007BFF, #0056b3);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 16px;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .case-card button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #0056b3, #004080);
+    }
+
+    .case-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    .case-nav span {
+      color: #333333; /* dark enough for white background */
+    }
+
+    /* 🔷 For Agent Status (keep dropdown visible) */
+#agent-status {
+  background-color: #eef5ff;
+  border: 1px solid #007BFF;
+  color: #000;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 8px;
+  appearance: auto;
+}
+
+/* 🔷 For Issue Type & Priority (make them look like static text fields) */
+#issue ,
+#priority {
+  background-color: #f0f4ff;
+  border: 1px solid #aaa;
+  color: #333;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 8px;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-image: none;
+  cursor: default;
+}
+
+  </style>
+</head>
+<body>
+  <h2>Welcome, Support Agent</h2>
+
+  <div class="case-container" id="caseContainer">
+    <!-- One case will be shown here -->
+  </div>
+
+  <script>
+    let allCases = [];
+    let currentIndex = 0;
+
+    function formatToIST(utcString) {
+      const utcDate = new Date(utcString);
+      return utcDate.toLocaleString("en-IN", {
+        timeZone: "Asia/Kolkata",
+        hour12: true,
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
+    }
+
+    async function loadCases() {
+      try {
+        const response = await fetch("http://localhost:3000/api/cases");
+        allCases = await response.json();
+        if (allCases.length === 0) {
+          document.getElementById("caseContainer").innerHTML = "<p>No open cases found.</p>";
+        } else {
+          showCase(allCases[currentIndex]);
+        }
+      } catch (err) {
+        console.error("❌ Failed to load cases:", err);
+        document.getElementById("caseContainer").innerHTML =
+          `<p>Error loading cases. Please try again later.</p>`;
+      }
+    }
+
+    function showCase(item) {
+      const container = document.getElementById("caseContainer");
+      container.innerHTML = `
+        <div class="case-card">
+          <h3>Case ID: ${item.CaseID}</h3>
+          <p><strong>Time:</strong> ${formatToIST(item.TimeStamp)}</p>
+          <p><strong>Product:</strong> ${item.Product}</p>
+
+          <label>Issue Type</label>
+          <select id="issue" disabled>
+            <option value="Task" ${item.IssueType === 'Task' ? 'selected' : ''}>Task</option>
+            <option value="New Project" ${item.IssueType === 'New Project' ? 'selected' : ''}>New Project</option>
+            <option value="Incident" ${item.IssueType === 'Incident' ? 'selected' : ''}>Incident</option>
+            <option value="Change Request" ${item.IssueType === 'Change Request' ? 'selected' : ''}>Change Request</option>
+          </select>
+
+          <label>Priority</label>
+          <select id="priority" disabled>
+            <option value="High" ${item.Priority === 'High' ? 'selected' : ''}>High</option>
+            <option value="Medium" ${item.Priority === 'Medium' ? 'selected' : ''}>Medium</option>
+            <option value="Low" ${item.Priority === 'Low' ? 'selected' : ''}>Low</option>
+          </select>
+
+          <p><strong>Customer Status:</strong> ${item.Status}</p>
+
+          <label>Agent Status</label>
+          <select id="agent-status">
+            <option value="Open" ${item.AgentStatus === 'Open' ? 'selected' : ''}>Open</option>
+            <option value="In Progress" ${item.AgentStatus === 'In Progress' ? 'selected' : ''}>In Progress</option>
+            <option value="Resolved" ${item.AgentStatus === 'Resolved' ? 'selected' : ''}>Resolved</option>
+            <option value="Closed" ${item.AgentStatus === 'Closed' ? 'selected' : ''}>Closed</option>
+          </select>
+
+          <p><strong>Raised By:</strong> ${item.RaisedBy}</p>
+          ${item.AttachmentPath 
+          ? `<p><strong>Attachment:</strong> <a href="http://localhost:3000/${item.AttachmentPath}" target="_blank">📎 View File</a></p>`
+          : `<p><strong>Attachment:</strong> ❌ Not provided</p>`}
+
+
+          <button onclick="updateCurrentCase()">Save</button>
+
+          <div class="case-nav">
+            <button onclick="prevCase()">⬅ Previous</button>
+            <span>${currentIndex + 1} of ${allCases.length}</span>
+            <button onclick="nextCase()">Next ➡</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function nextCase() {
+      if (currentIndex < allCases.length - 1) {
+        currentIndex++;
+        showCase(allCases[currentIndex]);
+      }
+    }
+
+    function prevCase() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        showCase(allCases[currentIndex]);
+      }
+    }
+
+    async function updateCurrentCase() {
+      const currentCase = allCases[currentIndex];
+      const IssueType = document.getElementById("issue").value;
+      const Priority = document.getElementById("priority").value;
+      const AgentStatus = document.getElementById("agent-status").value;
+      const UpdatedBy = "ria_purplechillies@gmail.com";
+
+      try {
+        const res = await fetch(`http://localhost:3000/api/cases/${currentCase.CaseID}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ IssueType, Priority, AgentStatus, UpdatedBy })
+        });
+
+        const result = await res.json();
+        alert(result.message || "Case updated successfully.");
+      } catch (err) {
+        console.error("❌ Failed to update case:", err);
+        alert("Update failed. Please try again.");
+      }
+    }
+
+    loadCases();
+  </script>
+</body>
+</html>
+
